@@ -1,4 +1,4 @@
-baseURL = "http://localhost:1313/"
+baseURL = "http://jhq.github.io"
 
 # theme
 # 主题
@@ -37,7 +37,7 @@ copyright = ""
 enableRobotsTXT = true
 # whether to use git commit log
 # 是否使用 git 信息
-enableGitInfo = true
+enableGitInfo = false
 # whether to use emoji code
 # 是否使用 emoji 代码
 enableEmoji = true
@@ -49,8 +49,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # Author config
 # 作者配置
 [author]
-  name = "xxxx"
-  email = ""
+  name = "Hanqi Jiang"
+  email = "jhqyyds@gmail.com"
   link = ""
 
 # Menu config
