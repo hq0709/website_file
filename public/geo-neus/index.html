@@ -34,7 +34,7 @@
                             "url": "http:\/\/hq0709.github.io\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "3D reconstruction, Deep learning","wordcount":  28 ,
+                        }],"genre": "posts","keywords": "3D reconstruction, Deep learning","wordcount":  465 ,
         "url": "http:\/\/hq0709.github.io\/geo-neus\/","datePublished": "2023-01-05T16:45:40+08:00","dateModified": "2023-01-05T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -119,7 +119,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Geo-Neus: Geometry-Consistent Neural Implicit Surfaces Learning for Multi-view Reconstruction</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hq0709" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Hanqi Jiang</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/papers/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>papers</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 28 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 465 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id="/geo-neus/" class="leancloud_visitors" data-flag-title="Geo-Neus: Geometry-Consistent Neural Implicit Surfaces Learning for Multi-view Reconstruction">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -145,7 +145,123 @@
 <pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">CommandNotFoundError: Your shell has not been properly configured to use <span class="s1">&#39;conda activate&#39;</span>.
 </span></span></code></pre></td></tr></table>
 </div>
+</div><p>解决方案：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">source</span> activate <span class="c1"># 执行后命令行出现base标识</span>
+</span></span><span class="line"><span class="cl">conda activate ...
+</span></span></code></pre></td></tr></table>
+</div>
 </div></li>
+<li>
+<p>conda activate pytorch 报错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Could not find conda environment: pytorch
+</span></span><span class="line"><span class="cl">You can list all discoverable environments with <span class="sb">`</span>conda info --envs<span class="sb">`</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">conda install pytorch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Executing transaction: failed
+</span></span><span class="line"><span class="cl">ERROR conda.core.link:_execute<span class="o">(</span>502<span class="o">)</span>: An error occurred <span class="k">while</span> installing package <span class="s1">&#39;conda-forge::certifi-2022.9.24-pyhd8ed1ab_0&#39;</span>.
+</span></span><span class="line"><span class="cl">FileNotFoundError<span class="o">(</span>2, <span class="s2">&#34;No such file or directory: &#39;/home/hanqi/.conda/envs/geoneus/bin/python3.7&#39;&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Attempting to roll back.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Rolling back transaction: <span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">FileNotFoundError<span class="o">(</span>2, <span class="s2">&#34;No such file or directory: &#39;/home/hanqi/.conda/envs/geoneus/bin/python3.7&#39;&#34;</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>默认的安装路径是错的，我把forge卸载了，之后可以正常安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">anaconda search -t conda fvcore
+</span></span><span class="line"><span class="cl">anaconda show ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>不知道为什么，anaconda3文件夹设置的是read only，如果要进行更新操作必须切换root用户</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo s <span class="c1"># 切换root用户</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> <span class="c1"># 退出回到原来的用户</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>程序运行一段时间被kill了，定位发现是在这句话的时候</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="bp">self</span><span class="o">.</span><span class="n">images_gray</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">images_gray_np</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>.cuda()是把数据储存到显卡里，可能是数据量太大了，我删除了一些照片，还剩十几张</p>
+</li>
+<li>
+<p>训练过程中报错缺失npy文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">FileNotFoundError: <span class="o">[</span>Errno 2<span class="o">]</span> No such file or directory: <span class="s1">&#39;pikachu_aruco/sfm_pts/points.npy&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查找后发现是作者没有给出这个文件的计算方法，只是说要modify <a href="https://github.com/GhiXu/ACMP/blob/master/colmap2mvsnet_acm.py" target="_blank" rel="noopener noreffer ">这个文件</a>
+运行指令需要两个，一个是数据文件夹，一个是保存的路径，直接运行报下面的错误</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">FileNotFoundError: <span class="o">[</span>Errno 2<span class="o">]</span> No such file or directory: <span class="s1">&#39;pikachu_aruco/sparse/cameras.txt&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个文件作者没有提供，也没有解释文件的内容是什么</p>
+</li>
+<li>
+<p>fields.py
+分成四个class，SDF network, Rendering netwrk, SingleVariance network 和 NeRF</p>
+</li>
 </ol>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

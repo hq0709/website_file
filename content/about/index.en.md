@@ -1,5 +1,15 @@
-# 关于我
+---
+title: "关于我"
+date: 2023-01-05T11:04:49+08:00
+draft: false
+description: "关于我"
 
+
+lightgallery: true
+
+math:
+  enable: true
+---
 
 > 👋 Hi! I am Hanqi Jiang from Beijing Jiaotong University  
 > 
@@ -27,5 +37,4 @@
 
 3. Liu, Z., Jiang, H., & Wang, T. (2022, October). Design and implementation of a quantitative investment system based on deep learning and data mining. In 2022 IEEE 2nd International Conference on Data Science and Computer Application (ICDSCA) (pp. 162-166). IEEE.  
    _Available at: [click here](https://ieeexplore.ieee.org/abstract/document/9988731)_
-
 

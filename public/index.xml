@@ -12,7 +12,7 @@
     <pubDate>Thu, 05 Jan 2023 16:45:40 &#43;0800</pubDate>
     <author>Hanqi Jiang</author>
     <guid>http://hq0709.github.io/geo-neus/</guid>
-    <description><![CDATA[代码复现 conda activate报错 1 CommandNotFoundError: Your shell has not been properly configured to use &#39;conda activate&#39;.]]></description>
+    <description><![CDATA[代码复现 conda activate报错 1 CommandNotFoundError: Your shell has not been properly configured to use &#39;conda activate&#39;. 解决方案： 1 2 source activate # 执行后命令行出现base标识 conda activate ... conda activate pytorch 报错 1 2 Could not find conda environment: pytorch You can]]></description>
 </item>
 </channel>
 </rss>
