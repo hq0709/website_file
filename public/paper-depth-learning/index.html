@@ -34,7 +34,7 @@
                             "url": "http:\/\/hq0709.github.io\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "Deep learing, 3D reconstruction","wordcount":  962 ,
+                        }],"genre": "posts","keywords": "Deep learing, 3D reconstruction","wordcount":  919 ,
         "url": "http:\/\/hq0709.github.io\/paper-depth-learning\/","datePublished": "2023-01-12T13:51:40+08:00","dateModified": "2023-01-12T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -119,7 +119,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="hq0709.github.io" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Hanqi Jiang</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/papers/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>papers</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-12">2023-01-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 962 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-12">2023-01-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 919 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/paper-depth-learning/" class="leancloud_visitors" data-flag-title="Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -142,18 +142,20 @@
 <blockquote>
 <p>根据摘要来看，文章主要提出了一种深度网络能够预测出相机轨迹
 所以文章中的loss很有可能是主要对深度网络的表现做优化
-code：<a href="https://github.com/JiawangBian/SC-SfMLearner-Release" target="_blank" rel="noopener noreffer ">https://github.com/JiawangBian/SC-SfMLearner-Release</a></p>
+code：<a href="https://github.com/JiawangBian/SC-SfMLearner-Release" target="_blank" rel="noopener noreffer ">点击跳转</a></p>
 </blockquote>
 <h2 id="论文笔记">论文笔记</h2>
 <p>取连续两帧，通过深度网络转换成深度图，通过pose net得到相机位姿，将二者输入损失函数中
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/paper-depth-learning/DraggedImage.png"
-        data-srcset="/paper-depth-learning/DraggedImage.png, /paper-depth-learning/DraggedImage.png 1.5x, /paper-depth-learning/DraggedImage.png 2x"
-        data-sizes="auto"
-        alt="/paper-depth-learning/DraggedImage.png"
-        title="网络架构图" width="1822" height="584" /></p>
+<figure><a class="lightgallery" href="/paper-depth-learning/1.png" title="网络架构图" data-thumbnail="/paper-depth-learning/1.png" data-sub-html="<h2>网络架构图</h2><p>网络架构图</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/paper-depth-learning/1.png"
+            data-srcset="/paper-depth-learning/1.png, /paper-depth-learning/1.png 1.5x, /paper-depth-learning/1.png 2x"
+            data-sizes="auto"
+            alt="/paper-depth-learning/1.png" width="1862" height="604" />
+    </a><figcaption class="image-caption">网络架构图</figcaption>
+    </figure></p>
 <ul>
 <li>这里需要看一下这个连续帧我们可不可以换成两个视角的照片</li>
 </ul>
@@ -161,20 +163,20 @@ code：<a href="https://github.com/JiawangBian/SC-SfMLearner-Release" target="_b
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/paper-depth-learning/DraggedImage-1.png"
-        data-srcset="/paper-depth-learning/DraggedImage-1.png, /paper-depth-learning/DraggedImage-1.png 1.5x, /paper-depth-learning/DraggedImage-1.png 2x"
+        data-src="/paper-depth-learning/DraggedImage-1.PNG"
+        data-srcset="/paper-depth-learning/DraggedImage-1.PNG, /paper-depth-learning/DraggedImage-1.PNG 1.5x, /paper-depth-learning/DraggedImage-1.PNG 2x"
         data-sizes="auto"
-        alt="/paper-depth-learning/DraggedImage-1.png"
+        alt="/paper-depth-learning/DraggedImage-1.PNG"
         title="phtotometric loss" width="1860" height="906" /></p>
 <ul>
 <li>光度一致性损失，这里没有看明白是如何把Ia投影到Ib，到底是否用到深度信息了，后面在代码部分探讨。
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/paper-depth-learning/DraggedImage-2.png"
-        data-srcset="/paper-depth-learning/DraggedImage-2.png, /paper-depth-learning/DraggedImage-2.png 1.5x, /paper-depth-learning/DraggedImage-2.png 2x"
+        data-src="/paper-depth-learning/DraggedImage-2.jpg"
+        data-srcset="/paper-depth-learning/DraggedImage-2.jpg, /paper-depth-learning/DraggedImage-2.jpg 1.5x, /paper-depth-learning/DraggedImage-2.jpg 2x"
         data-sizes="auto"
-        alt="/paper-depth-learning/DraggedImage-2.png"
+        alt="/paper-depth-learning/DraggedImage-2.jpg"
         title="geometry consistency loss" width="1858" height="990" /></li>
 <li>深度一致性损失比较好理解，就是直接通过深度图计算深度difference，作为深度一致性损失。
 根据上面的损失函数描述，定位到文件<code>loss_functions.py</code></li>
@@ -323,11 +325,11 @@ code：<a href="https://github.com/JiawangBian/SC-SfMLearner-Release" target="_b
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/paper-depth-learning/DraggedImage-3.png"
-        data-srcset="/paper-depth-learning/DraggedImage-3.png, /paper-depth-learning/DraggedImage-3.png 1.5x, /paper-depth-learning/DraggedImage-3.png 2x"
+        data-src="/paper-depth-learning/DraggedImage-3.jpg"
+        data-srcset="/paper-depth-learning/DraggedImage-3.jpg, /paper-depth-learning/DraggedImage-3.jpg 1.5x, /paper-depth-learning/DraggedImage-3.jpg 2x"
         data-sizes="auto"
-        alt="/paper-depth-learning/DraggedImage-3.png"
-        title="/paper-depth-learning/DraggedImage-3.png" width="1854" height="440" />
+        alt="/paper-depth-learning/DraggedImage-3.jpg"
+        title="smoothness loss" width="1854" height="440" />
 结合代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
