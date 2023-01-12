@@ -860,7 +860,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           disclaimer = ""
       [languages.en.params.social]
         GitHub = "hq0709"
-        Twitter = "xxxx"
+        Twitter = "jhqyyds"
         Instagram = "xxxx"
         Facebook = "xxxx"
         Telegram = "xxxx"
@@ -947,7 +947,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           disclaimer = ""
       [languages.zh-cn.params.social]
         GitHub = "hq0709"
-        Weibo = "xxxx"
+        Weibo = "jhqyyds"
         Steam = "3473639476"
         Zhihu = "xxxx"
         Douban = "xxxx"
