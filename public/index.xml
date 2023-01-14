@@ -12,7 +12,7 @@
     <pubDate>Thu, 12 Jan 2023 13:51:40 &#43;0800</pubDate>
     <author>Hanqi Jiang</author>
     <guid>http://hq0709.github.io/paper-depth-learning/</guid>
-    <description><![CDATA[Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video 根据摘要来看，文章主要提出了一种深度网络能够预测出相机轨迹 所以文章中的loss很有可能是主要对深度网络的表现做优化 code]]></description>
+    <description><![CDATA[Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video 根据摘要来看，文章主要提出了一种深度网络能够得出深度图 所以文章中的loss很有可能是主要对深度网络的表现做优化 code：点]]></description>
 </item>
 <item>
     <title>Python实现将视频转换为照片</title>

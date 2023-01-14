@@ -10,15 +10,16 @@ description: "论文笔记"
 images: []
 
 
-tags: ["Deep learing", "3D reconstruction"]
+tags: ["Deep learning", "3D reconstruction"]
 categories: ["papers"]
 
 lightgallery: true
 ---
 # Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video
 
-> 根据摘要来看，文章主要提出了一种深度网络能够预测出相机轨迹
->  所以文章中的loss很有可能是主要对深度网络的表现做优化
+> 根据摘要来看，文章主要提出了一种深度网络能够得出深度图
+>  所以文章中的loss很有可能是主要对深度网络的表现做优化  
+> 
 >  code：[点击跳转](https://github.com/JiawangBian/SC-SfMLearner-Release)
 
 ## 论文笔记
@@ -26,10 +27,11 @@ lightgallery: true
 ![网络架构图](1.png "网络架构图")
 * 这里需要看一下这个连续帧我们可不可以换成两个视角的照片
 ### photometric loss and geometry loss
-![phtotometric loss](DraggedImage-1.PNG)
+![phtotometric loss](2.png "photometric loss")
 * 光度一致性损失，这里没有看明白是如何把Ia投影到Ib，到底是否用到深度信息了，后面在代码部分探讨。
-![geometry consistency loss](DraggedImage-2.jpg)
+![geometry consistency loss](3.png "geometry consistency loss")
 * 深度一致性损失比较好理解，就是直接通过深度图计算深度difference，作为深度一致性损失。
+#### 结合代码
 根据上面的损失函数描述，定位到文件`loss_functions.py`
 ```python
 class SSIM(nn.Module):
@@ -100,8 +102,8 @@ def compute_pairwise_loss(tgt_img, ref_img, tgt_depth, ref_depth, pose, intrinsi
 * 根据代码计算 `diff_img`和`diff_depth`的过程发现计算img是直接对图片作差，计算depth是对深度值作差
 * 需要具体看一下`tgt_img`和`ref_img`是在哪里定义的，看这个compute在哪里被引用
 ### smoothness loss
-![smoothness loss](DraggedImage-3.jpg)
-结合代码
+![smoothness loss](4.png "smoothness loss")
+#### 结合代码
 ```python
 def compute_smooth_loss(tgt_depth, tgt_img, ref_depths, ref_imgs):
     def get_smooth_loss(disp, img):
@@ -132,4 +134,7 @@ def compute_smooth_loss(tgt_depth, tgt_img, ref_depths, ref_imgs):
 
     return loss
 ```
-* 这个损失函数输入两个target和两个refernce
+* 这个损失函数输入两个target和两个reference
+
+### warp过程
+定位到
