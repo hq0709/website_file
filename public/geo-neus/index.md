@@ -116,8 +116,8 @@ MVS：MVS（Multi-View Stereo）的目的是在已知相机位姿的前提下估
 
 5. 对loss function具体内容的再阐述  
    整个网络的输入是稀疏点和多视角照片（可以参考网络架构图）  
-   ```python
-   def forward(self, inputs):
+    ```python
+    def forward(self, inputs):
         """
         :type input_rgb: object
         """
@@ -138,7 +138,7 @@ MVS：MVS（Multi-View Stereo）的目的是在已知相机位姿的前提下估
 
             if l < self.num_layers - 2:
                 x = self.activation(x)
-   ```
+    ```
   * sdf网络中的forward函数其实返回的就是点的sdf值，对应文章中所说的MLP
   * 监督过程发生在渲染的同时，渲染的同时我们会返回一个点的sdf值，那么我们已有的三维稀疏点也可以进行渲染，利用sdf网络来返回sdf值，因为我们假设三维稀疏点在表面，因此我们试着用网络来返回，如果网络准确，它应该返回一个接近于0的值，同时为了弥补三维稀疏点的缺陷，也进行一个视角射线的抽样，利用多视角的照片，进行操作抽取点，这些是中间的过程，就是所谓的隐式曲面的抽取。同样为了监督隐式曲面的抽取，光度一致性损失被提出，这些都是中途的过程。综合来说，输入只有三位稀疏点和各个角度的照片。
    ```python
@@ -158,3 +158,56 @@ MVS：MVS（Multi-View Stereo）的目的是在已知相机位姿的前提下估
       loss = color_fine_loss + eikonal_loss * self.igr_weight + mask_loss * self.mask_weight + sdf_loss + ncc_loss
    ```
 * 以上是loss的具体计算过程
+
+6. renderer.py 代码解读
+```python
+   def get_psnr(img1, img2, normalize_rgb=False):
+    if normalize_rgb: # [-1,1] --> [0,1]
+        img1 = (img1 + 1.) / 2.
+        img2 = (img2 + 1. ) / 2.
+
+    mse = torch.mean((img1 - img2) ** 2)
+    psnr = -10. * torch.log(mse) / torch.log(torch.Tensor([10.]).cuda())
+
+    return psnr
+```
+- 这个函数计算两张图像img1和img2的峰值信噪比（PSNR）。如果normalize_rgb标志设置为True，函数将通过将范围从[-1,1]转换为[0,1]来标准化图像。然后，函数通过计算两张图像的像素值之差的平方平均值来计算两幅图像之间的均方误差（MSE）。然后使用MSE和最大可能像素值（对于8位图像为255）的log base 10计算PSNR。返回最终的PSNR值。
+
+
+```python
+  def extract_fields(bound_min, bound_max, resolution, query_func):
+    N = 64
+    X = torch.linspace(bound_min[0], bound_max[0], resolution).split(N)
+    Y = torch.linspace(bound_min[1], bound_max[1], resolution).split(N)
+    Z = torch.linspace(bound_min[2], bound_max[2], resolution).split(N)
+
+    u = np.zeros([resolution, resolution, resolution], dtype=np.float32)
+    with torch.no_grad():
+        for xi, xs in enumerate(X):
+            for yi, ys in enumerate(Y):
+                for zi, zs in enumerate(Z):
+                    xx, yy, zz = torch.meshgrid(xs, ys, zs)
+                    pts = torch.cat([xx.reshape(-1, 1), yy.reshape(-1, 1), zz.reshape(-1, 1)], dim=-1)
+                    val = query_func(pts).reshape(len(xs), len(ys), len(zs)).detach().cpu().numpy()
+                    u[xi * N: xi * N + len(xs), yi * N: yi * N + len(ys), zi * N: zi * N + len(zs)] = val
+    return u
+  ```
+
+- 这个函数通过在由边界框坐标和分辨率定义的网格上的点上调用查询函数来提取字段。该函数首先将网格分割成大小为N = 64的块，然后使用torch.linspace()函数生成一组线性间隔值，用于x，y和z维。然后，函数使用嵌套for循环遍历网格的块，对于每个块，它使用该块中的点调用查询函数，并将结果存储在u数组中。
+- 这个函数使用numpy库创建数组，Pytorch创建点网格并将它们分块处理。
+
+```python
+def extract_geometry(bound_min, bound_max, resolution, threshold, query_func):
+    print('threshold: {}'.format(threshold))
+    u = extract_fields(bound_min, bound_max, resolution, query_func)
+    vertices, triangles = mcubes.marching_cubes(u, threshold)
+    b_max_np = bound_max.detach().cpu().numpy()
+    b_min_np = bound_min.detach().cpu().numpy()
+
+    vertices = vertices / (resolution - 1.0) * (b_max_np - b_min_np)[None, :] + b_min_np[None, :]
+    return vertices, triangles
+```
+
+- 这个函数通过使用Marching Cubes算法来从3D场中提取几何体。它接受四个参数：bound_min和bound_max是3D空间的下限和上限，resolution是每个维度上的点数，threshold是Marching Cubes算法用来确定场中哪些点被认为是几何体的一部分的值，query_func是返回场在一组点上的值的函数。
+- 该函数首先调用extract_fields()函数获取一个3D场，然后将场和阈值值传递给mcubes库中的marching_cubes()函数，该函数返回提取的几何体的顶点和三角形。然后，缩放并偏移顶点以匹配由bound_min和bound_max指定的边界框。
+- 该函数使用Pytorch处理数据，使用mcubes库提取几何体，并使用Pytorch将张量转换为numpy数组。
