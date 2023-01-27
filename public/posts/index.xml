@@ -4,13 +4,21 @@
         <link>http://hq0709.github.io/posts/</link>
         <description>所有文章 | jhqyyds</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>jhqyyds@gmail.com (Hanqi Jiang)</managingEditor>
-            <webMaster>jhqyyds@gmail.com (Hanqi Jiang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 14 Jan 2023 21:57:40 &#43;0800</lastBuildDate><atom:link href="http://hq0709.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>jhqyyds@gmail.com (Hanqi Jiang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 15 Jan 2023 21:57:40 &#43;0800</lastBuildDate><atom:link href="http://hq0709.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Geo-Neus中renderer代码的具体解读</title>
+    <link>http://hq0709.github.io/geo-neus-renderer/</link>
+    <pubDate>Sun, 15 Jan 2023 21:57:40 &#43;0800</pubDate>
+    <author>Hanqi Jiang</author>
+    <guid>http://hq0709.github.io/geo-neus-renderer/</guid>
+    <description><![CDATA[get_psnr 1 2 3 4 5 6 7 8 9 def get_psnr(img1, img2, normalize_rgb=False): if normalize_rgb: # [-1,1] --&gt; [0,1] img1 = (img1 + 1.) / 2. img2 = (img2 + 1. ) / 2. mse = torch.mean((img1 - img2) ** 2) psnr = -10. * torch.log(mse) / torch.log(torch.Tensor([10.]).cuda()) return psnr 这个函数计算两张图像img1和img2]]></description>
+</item>
+<item>
     <title>操作系统考点总结（按章节）</title>
     <link>http://hq0709.github.io/operating-system-review/</link>
     <pubDate>Sat, 14 Jan 2023 21:57:40 &#43;0800</pubDate>
     <author>Hanqi Jiang</author>
     <guid>http://hq0709.github.io/operating-system-review/</guid>
-    <description><![CDATA[操作系统考点总结（按章节） Chapter 1 updated in 2023.1.13 1. Monolithic OS（单一型）的优缺点？（单一型是os类型之一，用户和系统放在一起） 优：(1) efficient; (2) better performance 缺：(1) Difficult to]]></description>
+    <description><![CDATA[tip 这是我总结的操作系统的考点，但内容并不完善，可以参考这篇笔记，里面有更详细的我关于知识点的记录 Chapter 1 updated in 2023.1.13 1. Monolithic OS（单一型）的优缺点？（单一]]></description>
 </item>
 <item>
     <title>Unsupervised Scale-consistent Depth and Ego-motion Learning from Monocular Video</title>

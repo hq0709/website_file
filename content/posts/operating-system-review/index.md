@@ -2,7 +2,7 @@
 weight: 4
 title: "操作系统考点总结（按章节）"
 date: 2023-01-14T21:57:40+08:00
-lastmod: 2023-01-14T22:11:40+08:00
+lastmod: 2023-01-16T22:11:40+08:00
 draft: false
 author: "Hanqi Jiang"
 authorLink: "https://github.com/hq0709"
@@ -16,7 +16,10 @@ categories: ["Course notes"]
 lightgallery: true
 ---
 
-# 操作系统考点总结（按章节）
+{{< admonition type=tip title="tip" open=true >}}
+这是我总结的操作系统的考点，但内容并不完善，可以参考[这篇笔记](https://jjlde7r0bk.feishu.cn/wiki/wikcnjqZ54DulF74jkJayfSN48d)，里面有更详细的我关于知识点的记录
+{{< /admonition >}}
+
 ## Chapter 1
 > updated in 2023.1.13
 
@@ -36,6 +39,8 @@ lightgallery: true
 - 优：libraries provide additional security and personality
 - 缺：less consistency(缺乏稳定性)
 
+---
+
 ## Chapter 2
 > updated in 2023.1.13
 
@@ -45,9 +50,14 @@ lightgallery: true
 
 **2. Concurrency & parallelism (并发和并行)的区别？**
 - Concurrency: processes are underway simultaneously, different processes execute one by one.
-![concurrency](DraggedImage.png "concurrency")
+
+<!-- ![concurrency](2.png "concurrency") -->
+
 - Parallelism: Multiple (n \> 1) processes executing simultaneously. 
-![parallelism](DraggedImage-1.png "parallelism") 	
+
+<!-- <img src="1.png"  width = "15%" height = 25% alt = "parallelism"/> -->
+
+<!-- ![parallelism](1.png "parallelism") 	 -->
 - 对于并发，在同一时间点任务不同时execute；对于并行，在同一时间点任务一定同时execute，并发和并行都是针对process而言的
 - Processes are always concurrent, but not always parallel
 
@@ -80,9 +90,11 @@ lightgallery: true
 - Program: _Instruction sequence_; Stored on disk 指令集；存储在硬盘上
 - Process：_Program in execution_ on a processor; store in primary memory
 - Program may be executed by multiple processes at the same time
-![一个程序同时被两个进程执行](DraggedImage-2.png "一个程序同时被两个进程执行")
+<img src="DraggedImage-2.png" width = 70% height = 70% alt = "一个程序同时被两个进程执行"/>
+<!-- ![一个程序同时被两个进程执行](DraggedImage-2.png "一个程序同时被两个进程执行") -->
 - Process can run multiple programs. (多个thread)
-![一个进程同时执行多个程序](DraggedImage-3.png "一个进程同时执行多个程序")
+<img src="DraggedImage-3.png" width = 70% height = 60% alt = "一个进程同时执行多个程序"/>
+<!-- ![一个进程同时执行多个程序](DraggedImage-3.png "一个进程同时执行多个程序") -->
 
 
 **5. When do we not have to worry about concurrency?**
@@ -93,6 +105,8 @@ lightgallery: true
 **6. When should we worry about concurrency? （并发带来坏的影响）**
 - Threads access a shared resource without synchronization
 - One or more threads modify the shared resource
+
+---
 
 ## Chapter 3
 
@@ -142,3 +156,102 @@ lightgallery: true
 
 
 **8. Lock acquire( ) only blocks threads attempting to acquire the same lock. Must use same lock for all critical sections accessing the same data.**
+
+**9. Three steps of context-switching sequence**
+- De-schedule currently-running thread
+- Scheduler selects ‘best’ ready thread to run next 
+- Resume newly-selected thread 
+
+---
+
+## Chapter 4
+
+> updated in 2023.1.16
+
+
+**1. 信号量（改错）：**
+```c
+typedef struct _sem { 
+    int val; /* semaphore  value*/ 
+    Queue queue; / oper: put, get*/ 
+} Sem
+void P(Sem s) { /* wait() procedure */ 
+      s->val = s->val - 1; 
+      if (s->val < 0) { 
+           put(s->queue, getpid()); /* queue of PIDs */ 
+            sleep(getpid()); } } 
+void V(Sem s) { /* signal() procedure */ 
+        s->val = s->val + 1; 
+         if (s->val >= 0){ 
+           wakeup(get(s->queue));} }
+```
+- P等同于wait，V等同于signal
+- `sleep`是通过把这个线程放到waiting queue中来block这个线程
+- `wakeup`是唤醒waiting queue中的线程，并放到running queue中
+
+**2. P，V操作如何在java和C下实现的？**
+  - Java: wait() & notify()
+  - C: acquire() & release()
+  - Unix: sleep() & wakeup()
+  - Distributed system分布式系统（Message Passing）: send() & receive()
+
+**3. 虚假唤醒（Spurious wakeup）是考试中一道大题**
+```java
+public class Semaphore { 
+    private int count = 0;   
+    public Semaphore(int init_val){ 
+         count = init_val; 
+    } 
+    public synchronized void P() { 
+        count = count - 1; 
+        if (count < 0) wait(); 
+    } 
+    public synchronized void V() { 
+        count = count + 1;
+        notifyAll(); 
+    }
+}
+```
+- 什么时候会引起虚假唤醒？
+- Answer: Does not recheck the condition，把P中的`if`改为`while`
+
+**4. 编程题： put() get()操作**
+```java
+public class BoxDimension{
+   private int dim = 0;
+   private Semaphore sem = 1;
+   public void put(int d) {
+       dim = d; 
+       sem.signal();
+   } 
+   public int get() {  
+       sem.wait();
+       return dim; 
+    }
+} 
+BoxDimension d = new BoxDimension();
+```
+  
+**5. Java中的semaphore**
+```java
+public class Semaphore { 
+    private int count = 0; 
+    public Semaphore(int init_val) { 
+           count = init_val; // Should check it’s >= 0 
+    } 
+    public synchronized void P() { 
+           count = count - 1; 
+           while (count < 0) wait(); // why not ‘if’? 
+       } 
+    public synchronized void V() { 
+            count = count + 1; /* if there is one, wake a waiter; */
+            notifyAll(); /* why not use ‘notify()’? */ 
+    } 
+}
+```
+- P中要使用`while`来判断是否要wait，因为如果条件满足要一直wait
+- V中要使用`notifyAll()`，而不是`notify()`，因为`notify()`会导致deadlock
+
+---
+
+## Chapter 5

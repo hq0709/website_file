@@ -34,7 +34,7 @@
                             "url": "http:\/\/hq0709.github.io\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "3D reconstruction, Deep learning","wordcount":  2826 ,
+                        }],"genre": "posts","keywords": "3D reconstruction, Deep learning","wordcount":  1923 ,
         "url": "http:\/\/hq0709.github.io\/geo-neus\/","datePublished": "2023-01-04T21:57:40+08:00","dateModified": "2023-01-09T17:11:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -119,8 +119,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Geo-Neus: Geometry-Consistent Neural Implicit Surfaces Learning for Multi-view Reconstruction</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hq0709" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Hanqi Jiang</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/papers/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>papers</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-04">2023-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2826 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/geo-neus/" class="leancloud_visitors" data-flag-title="Geo-Neus: Geometry-Consistent Neural Implicit Surfaces Learning for Multi-view Reconstruction">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-04">2023-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1923 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/geo-neus/" class="leancloud_visitors" data-flag-title="Geo-Neus: Geometry-Consistent Neural Implicit Surfaces Learning for Multi-view Reconstruction">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -498,106 +498,9 @@ MVS：MVS（Multi-View Stereo）的目的是在已知相机位姿的前提下估
 <li>以上是loss的具体计算过程</li>
 </ul>
 <ol start="6">
-<li>renderer.py 代码解读</li>
+<li>renderer.py 代码解读
+由于render内容很多，我会在另一篇文章中单独介绍这个文件的内容，<a href="https://hq0709.github.io/geo-neus-renderer/" target="_blank" rel="noopener noreffer ">点击此处跳转</a></li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">   <span class="k">def</span> <span class="nf">get_psnr</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">normalize_rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">normalize_rgb</span><span class="p">:</span> <span class="c1"># [-1,1] --&gt; [0,1]</span>
-</span></span><span class="line"><span class="cl">        <span class="n">img1</span> <span class="o">=</span> <span class="p">(</span><span class="n">img1</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
-</span></span><span class="line"><span class="cl">        <span class="n">img2</span> <span class="o">=</span> <span class="p">(</span><span class="n">img2</span> <span class="o">+</span> <span class="mf">1.</span> <span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">mse</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">img1</span> <span class="o">-</span> <span class="n">img2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">psnr</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">10.</span><span class="p">])</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">psnr</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>这个函数计算两张图像img1和img2的峰值信噪比（PSNR）。如果normalize_rgb标志设置为True，函数将通过将范围从[-1,1]转换为[0,1]来标准化图像。然后，函数通过计算两张图像的像素值之差的平方平均值来计算两幅图像之间的均方误差（MSE）。然后使用MSE和最大可能像素值（对于8位图像为255）的log base 10计算PSNR。返回最终的PSNR值。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">extract_fields</span><span class="p">(</span><span class="n">bound_min</span><span class="p">,</span> <span class="n">bound_max</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">query_func</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">N</span> <span class="o">=</span> <span class="mi">64</span>
-</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">bound_min</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bound_max</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">resolution</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">bound_min</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bound_max</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">resolution</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">bound_min</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bound_max</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">resolution</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">xs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">yi</span><span class="p">,</span> <span class="n">ys</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Y</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">zi</span><span class="p">,</span> <span class="n">zs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Z</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">zs</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">pts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">xx</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">yy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">zz</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">val</span> <span class="o">=</span> <span class="n">query_func</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">zs</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">u</span><span class="p">[</span><span class="n">xi</span> <span class="o">*</span> <span class="n">N</span><span class="p">:</span> <span class="n">xi</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">yi</span> <span class="o">*</span> <span class="n">N</span><span class="p">:</span> <span class="n">yi</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">),</span> <span class="n">zi</span> <span class="o">*</span> <span class="n">N</span><span class="p">:</span> <span class="n">zi</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">zs</span><span class="p">)]</span> <span class="o">=</span> <span class="n">val</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">u</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>这个函数通过在由边界框坐标和分辨率定义的网格上的点上调用查询函数来提取字段。该函数首先将网格分割成大小为N = 64的块，然后使用torch.linspace()函数生成一组线性间隔值，用于x，y和z维。然后，函数使用嵌套for循环遍历网格的块，对于每个块，它使用该块中的点调用查询函数，并将结果存储在u数组中。</li>
-<li>这个函数使用numpy库创建数组，Pytorch创建点网格并将它们分块处理。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">extract_geometry</span><span class="p">(</span><span class="n">bound_min</span><span class="p">,</span> <span class="n">bound_max</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">query_func</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;threshold: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">threshold</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="n">u</span> <span class="o">=</span> <span class="n">extract_fields</span><span class="p">(</span><span class="n">bound_min</span><span class="p">,</span> <span class="n">bound_max</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">query_func</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">=</span> <span class="n">mcubes</span><span class="o">.</span><span class="n">marching_cubes</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">b_max_np</span> <span class="o">=</span> <span class="n">bound_max</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="n">b_min_np</span> <span class="o">=</span> <span class="n">bound_min</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">vertices</span> <span class="o">=</span> <span class="n">vertices</span> <span class="o">/</span> <span class="p">(</span><span class="n">resolution</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b_max_np</span> <span class="o">-</span> <span class="n">b_min_np</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">b_min_np</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>这个函数通过使用Marching Cubes算法来从3D场中提取几何体。它接受四个参数：bound_min和bound_max是3D空间的下限和上限，resolution是每个维度上的点数，threshold是Marching Cubes算法用来确定场中哪些点被认为是几何体的一部分的值，query_func是返回场在一组点上的值的函数。</li>
-<li>该函数首先调用extract_fields()函数获取一个3D场，然后将场和阈值值传递给mcubes库中的marching_cubes()函数，该函数返回提取的几何体的顶点和三角形。然后，缩放并偏移顶点以匹配由bound_min和bound_max指定的边界框。</li>
-<li>该函数使用Pytorch处理数据，使用mcubes库提取几何体，并使用Pytorch将张量转换为numpy数组。</li>
-</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
